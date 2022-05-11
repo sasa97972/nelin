@@ -15,8 +15,6 @@ F.forEach(f => {
     REACTIVE.push({y: z_v.im || 0, x: f});
 });
 
-console.log(REACTIVE);
-
 export default () => {
     new Chart(
         document.getElementById('chart6'),
