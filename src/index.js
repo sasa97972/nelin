@@ -1,1 +1,9 @@
-console.log('Hello');
+import chart1 from "./charts/chart1";
+import chart2 from "./charts/chart2";
+import chart3 from "./charts/chart3";
+
+import './scss/index.scss';
+
+chart1();
+chart2();
+chart3();

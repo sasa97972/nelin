@@ -1,5 +1,5 @@
 const path = require('path');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = {
     entry: './src/index.js',
@@ -18,6 +18,18 @@ const config = {
         hot: true,
         open: true,
     },
+    module: {
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
+        ],
+    },
     plugins: [],
 };
 
@@ -30,7 +42,7 @@ module.exports = (env, argv) => {
         config.plugins.push(
             new CopyPlugin({
                 patterns: [
-                    { from: "public", to: "" },
+                    { from: 'public', to: '' },
                 ],
             }),
         )

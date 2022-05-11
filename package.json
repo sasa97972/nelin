@@ -12,8 +12,16 @@
   "license": "ISC",
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.4",
+    "css-loader": "^6.7.1",
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
+  },
+  "dependencies": {
+    "chart.js": "^3.7.1",
+    "mathjs": "^10.5.2"
   }
 }
