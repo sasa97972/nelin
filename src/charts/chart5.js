@@ -1,38 +1,39 @@
-import { abs, complex, evaluate, pi, tan } from 'mathjs';
-import Chart from 'chart.js/auto';
-import { Z_N, Z_V, DEFAULT_FREQUENCY as F } from '../config';
+import { complex, evaluate, pi, tan } from "mathjs";
+import Chart from "chart.js/auto";
+import { Z_N } from "../config";
+import { createFrequencyArray } from "../functions";
 
-const RN_DATA = F.map(f => {
+const F = createFrequencyArray(0, 8, 0.01);
+
+const ACTIVE = [];
+const REACTIVE = [];
+
+F.forEach(f => {
     const tan_phi = tan(evaluate(`${pi}/2 * ${f}`));
     const z_n_i = evaluate(`(${complex(1, Z_N * tan_phi)}) / (${complex(1, Z_N ** (-1) * tan_phi)})`);
-    const R_N = evaluate(`(1 - ${z_n_i}) / (1 + ${z_n_i})`);
-    return {y: abs(R_N), x: f};
+    ACTIVE.push({y: z_n_i.re, x: f});
+    REACTIVE.push({y: z_n_i.im || 0, x: f});
 });
 
-const RV_DATA = F.map(f => {
-    const tan_phi = tan(evaluate(`${pi}/2 * ${f}`));
-    const z_v_i = evaluate(`(${complex(1, Z_V * tan_phi)}) / (${complex(1, Z_V ** (-1) * tan_phi)})`);
-    const R_V = evaluate(`(1 - ${z_v_i}) / (1 + ${z_v_i})`);
-    return {y: abs(R_V), x: f};
-});
+console.log(REACTIVE);
 
 export default () => {
     new Chart(
-        document.getElementById('chart1'),
+        document.getElementById('chart5'),
         {
             type: 'scatter',
             data: {
                 datasets: [
                     {
-                        label: 'Яма',
-                        data: RN_DATA,
+                        label: 'Активна складова',
+                        data: ACTIVE,
                         showLine: true,
                         borderColor: 'rgb(0 91 187)',
                         backgroundColor: 'rgb(0 91 187)',
                     },
                     {
-                        label: 'Бар\'єр',
-                        data: RV_DATA,
+                        label: 'Реактивна складова',
+                        data: REACTIVE,
                         showLine: true,
                         borderColor: 'rgb(255 213 0)',
                         backgroundColor: 'rgb(255 213 0)',
@@ -50,14 +51,14 @@ export default () => {
                     y: {
                         title: {
                             display: true,
-                            text: 'R',
+                            text: 'z_n',
                         },
                     },
                 },
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Залежність коефіцієнта проходження від частоти'
+                        text: 'Побудована залежність для неоднорідності типа “бар’єр”'
                     }
                 }
             }
