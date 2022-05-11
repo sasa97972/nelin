@@ -42,7 +42,13 @@ module.exports = (env, argv) => {
         config.plugins.push(
             new CopyPlugin({
                 patterns: [
-                    { from: 'public', to: '' },
+                    {
+                        from: 'public',
+                        to: '',
+                        transform(content) {
+                            return content.toString().replace('/main.js', 'main.js');
+                        },
+                    },
                 ],
             }),
         )
