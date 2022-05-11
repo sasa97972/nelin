@@ -1,4 +1,4 @@
-import { abs, complex, evaluate, pi, tan } from 'mathjs';
+import {abs, complex, evaluate, pi, sqrt, tan} from 'mathjs';
 import Chart from 'chart.js/auto';
 import { DEFAULT_FREQUENCY as F } from '../config';
 import { getRandomColor } from '../helpers';
@@ -18,7 +18,8 @@ for (const lRatio of lRatios) {
                 const tan_phi = tan(evaluate(`${pi}/2 * ${f} * ${lRatio}`));
                 const z_i = evaluate(`(${complex(1, z * tan_phi)}) / (${complex(1, z ** (-1) * tan_phi)})`);
                 const R = evaluate(`(1 - ${z_i}) / (1 + ${z_i})`);
-                return {y: abs(R), x: f};
+                const T = sqrt(evaluate(`1 - ${abs(R)}^2`));
+                return {y: abs(T), x: f};
             })
         );
     }
@@ -29,7 +30,7 @@ for (const lRatio of lRatios) {
 export default () => {
     CHARTS.forEach((chartData, index) => {
         new Chart(
-            document.getElementById(`chart3-${index + 1}`),
+            document.getElementById(`chart4-${index + 1}`),
             {
                 type: 'scatter',
                 data: {
@@ -75,7 +76,7 @@ export default () => {
                         y: {
                             title: {
                                 display: true,
-                                text: 'R',
+                                text: 'T',
                             },
                         },
                     },
@@ -88,7 +89,7 @@ export default () => {
                     plugins: {
                         title: {
                             display: true,
-                            text: `Коефіцієнт відбиття, l/l0=${lRatios[index]}`
+                            text: `Коефіцієнт проходження, l/l0=${lRatios[index]}`
                         }
                     }
                 }
