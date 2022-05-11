@@ -51,7 +51,7 @@ export default () => {
                     y: {
                         title: {
                             display: true,
-                            text: 'z_n',
+                            text: 'z_v',
                         },
                     },
                 },
