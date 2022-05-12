@@ -1,9 +1,6 @@
 import { complex, evaluate, pi, tan } from "mathjs";
 import Chart from "chart.js/auto";
-import { Z_N } from "../config";
-import { createFrequencyArray } from "../functions";
-
-const F = createFrequencyArray(0, 8, 0.01);
+import { Z_N, DEFAULT_FREQUENCY as F } from "../config";
 
 const ACTIVE = [];
 const REACTIVE = [];
