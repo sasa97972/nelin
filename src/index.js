@@ -5,6 +5,7 @@ import chart4 from './charts/chart4';
 import chart5 from './charts/chart5';
 import chart6 from './charts/chart6';
 import chart7 from './charts/chart7';
+import chart8 from './charts/chart8';
 
 import './scss/index.scss';
 
@@ -15,3 +16,4 @@ chart4();
 chart5();
 chart6();
 chart7();
+chart8();
