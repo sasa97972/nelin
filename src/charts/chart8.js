@@ -1,10 +1,10 @@
-import { complex, evaluate, pi, tan, sqrt } from "mathjs";
+import { complex, evaluate, pi, tan } from "mathjs";
 import Chart from "chart.js/auto";
 import { Z_N } from "../config";
 import { createFrequencyArray } from "../functions";
 
-const F = createFrequencyArray(0, 0.5, 0.01);
-
+const F = createFrequencyArray(0, 1.5, 0.01);
+const Z = 0.2;
 const REACTIVE_DATA = [];
 const C_F_DATA = [];
 
@@ -13,8 +13,8 @@ F.forEach(f => {
     const z_n = evaluate(`(${complex(1, Z_N * tan_phi)}) / (${complex(1, Z_N**(-1) * tan_phi)})`);
     REACTIVE_DATA.push({ y: z_n.im || 0, x: f });
 
-    const C = evaluate(`-(${pi} * ${f}) / (2 * ${Z_N} * ${sqrt(evaluate(`1 + (${pi} * ${f}) / (2 * ${Z_N})`))})`);
-    C_F_DATA.push({ y: C, x: f })
+    const C = evaluate(`4 / (${complex(4, evaluate(`2 * ${pi} * ${f} * ${Z**(-1)}`))})`);
+    C_F_DATA.push({ y: C.im || 0, x: f })
 });
 
 export default () => {
